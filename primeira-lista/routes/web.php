@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ExerciciosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,18 +23,11 @@ Route::get('/bem-vindo', function () {
     return "Seja bem vindo!";
 });
 
-Route::get('/exer1', function(){
-    return view('exer1');
-});
+Route::get('/exer1', [ExerciciosController::class, 'abrirFormExer1']);
 
-Route::post('/exer1resp', function(Request $request){
-    $valor1 = intval($request->input('valor1'));
-    $valor2 = intval($request->input('valor2'));
-    $soma = $valor1 + $valor2;
-    return view('exer1', compact('soma'));
-});
+Route::post('/exer1resp', [ExerciciosController::class, 'respExer1']);
 
-
+//Rotas da lista de exercício
 Route::get('/ex1' ,function(){
     return view('lista.ex1');
 });
@@ -99,3 +93,12 @@ Route::post('listaex6', function(Request $request){
     return view('lista.ex6', compact('perimetro'));
 });
 
+Route::get('/ex7', function(){
+    return view('lista.ex7');
+});
+
+Route::post('listaex7', function(Request $request){
+    $raio = floatval($request->input('raio'));
+    $perimetro = 2 * 3.14 * $raio;
+    return view('lista.ex7', compact('perimetro'));
+});
