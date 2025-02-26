@@ -102,3 +102,34 @@ Route::post('listaex7', function(Request $request){
     $perimetro = 2 * 3.14 * $raio;
     return view('lista.ex7', compact('perimetro'));
 });
+
+Route::get('/ex8', function(){
+    return view('lista.ex8');
+});
+
+Route::post('listaex8', function(Request $request){
+    $base = floatval($request->input('base'));
+    $expoente = floatval($request->input('expoente'));
+    $resultado = pow($base, $expoente);
+    return view('lista.ex8', compact('resultado'));
+});
+
+Route::get('/ex9', function(){
+    return view('lista.ex9');
+});
+
+Route::post('listaex9', function(Request $request){
+    $metros = floatval($request->input('metros'));
+    $centimetros = $metros * 100;
+    return view('lista.ex9', compact('centimetros'));
+});
+
+Route::get('/ex10', function(){
+    return view('lista.ex10');
+});
+
+Route::post('listaex10', function(Request $request){
+    $km = floatval($request->input('km'));
+    $milhas = $km * 0.621371;
+    return view('lista.ex10', compact('milhas'));
+});
