@@ -133,3 +133,26 @@ Route::post('listaex10', function(Request $request){
     $milhas = $km * 0.621371;
     return view('lista.ex10', compact('milhas'));
 });
+
+Route::get('ex11', function(){
+    return view('lista.ex11');
+});
+
+Route::post('listaex11', function(Request $request){
+    $peso = floatval($request->input('peso'));
+    $altura = floatval($request->input('altura')); 
+    $imc = $peso / ($altura ** 2);
+    return view('lista.ex11', compact('imc'));
+});
+
+Route::get('ex12', function(){
+    return view('lista.ex12');
+});
+
+Route::post('listaex12', function(Request $request){
+    $preco = floatval($request->input('preco'));
+    $desconto = floatval($request->input('desconto'));
+    $preco_final = $preco - ($preco * ($desconto / 100) );
+    return view('lista.ex12', compact('preco_final'));
+});
+
