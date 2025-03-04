@@ -18,7 +18,7 @@
 </form>
 
 
-@isset($preco_final)
-<p>O valor final do produto é {{$preco_final}}.</p>
+@isset($montante)
+<p>O valor final do produto é {{$montante}}.</p>
 @endisset
 @endsection

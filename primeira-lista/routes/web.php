@@ -156,3 +156,39 @@ Route::post('listaex12', function(Request $request){
     return view('lista.ex12', compact('preco_final'));
 });
 
+Route::get('ex13', function(){
+    return view('lista.ex13');
+});
+
+Route::post('listaex13', function(Request $request){
+    $capital_js = floatval($request->input('capital'));
+    $juros = floatval($request->input('juros'));
+    $periodo_js = floatval($request->input('periodo'));
+    $juros_simples = $capital_js * ($juros / 100) * $periodo_js;
+    return view('lista.ex13', compact('juros_simples'));
+});
+
+Route::get('ex14', function(){
+    return view('lista.ex14');
+});
+
+Route::post('listaex14', function(Request $request){
+    $capital_jc = floatval($request->input('capital'));
+    $juros = floatval($request->input('juros'));
+    $periodo_jc = floatval($request->input('periodo'));
+    $montante = number_format(($capital_jc * (1 + $juros/100) ** $periodo_jc), 2, ',', '.');  
+    return view('lista.ex14', compact('montante'));
+});
+
+Route::get('ex15', function(){
+    return view('lista.ex15');
+});
+
+Route::post('listaex15', function(Request $request){
+    $qtd_dias = floatval($request->input('dias'));
+    $totalHoras = $qtd_dias * 24; 
+    $horas = floor($totalHoras); 
+    $minutos = floor(($totalHoras - $horas) * 60); 
+    $segundos = floor((($totalHoras - $horas) * 60 - $minutos) * 60); 
+    return view('lista.ex15', compact('qtd_dias', 'horas', 'minutos', 'segundos'));
+});
