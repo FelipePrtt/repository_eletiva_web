@@ -39,8 +39,8 @@
                     <td> {{ $p->nome }}</td>
                     <td> {{ $p->categoria->nome }}</td>
                     <td>
-                        <a href="#" class="btn btn-warning">Editar</a>
-                        <a href="#" class="btn btn-info">Consultar</a>
+                        <a href="/produtos/{{ $p->id }}/edit" class="btn btn-warning">Editar</a>
+                        <a href="/produtos/{{ $p->id }}" class="btn btn-info">Consultar</a>
                     </td>
                 </tr>
             @endforeach
