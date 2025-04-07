@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Funcionario extends Model
 {
-    protected $fillable =['nome', 'telefone', 'cpf', 'rg', 'cep', 'estado', 'cidade', 'bairro', 'endereco'];
-
+    protected $fillable = [
+        'nome', 'cpf', 'rg', 'telefone',
+        'cep', 'estado', 'cidade', 'bairro', 'endereco'
+    ];
     public function produtos()
     {
         return $this->hasMany(Produto::class);

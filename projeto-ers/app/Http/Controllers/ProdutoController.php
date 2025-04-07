@@ -10,39 +10,25 @@ use Illuminate\Support\Facades\Log;
 
 class ProdutoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Listar todos os produtos
     public function index()
     {
         $produtos = Produto::with('fornecedor')->get();
         return view("produtos.index", compact('produtos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Formulário de criação
     public function create()
     {
         $fornecedores = Fornecedor::all();
         return view("produtos.create", compact("fornecedores"));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Salvar novo produto
     public function store(Request $request)
     {
         try {
-            $data = $request->validate([
-                'descricao' => 'required|string|max:255',
-                'valor_compra' => 'required|numeric|min:0',
-                'valor_venda' => 'required|numeric|min:0',
-                'fornecedor_id' => 'nullable|exists:fornecedors,id',
-                'data_compra' => 'nullable|date'
-            ]);
-
-            Produto::create($data);
+           Produto::create($request->all());
             
             return redirect()->route('produtos.index')
                 ->with('sucesso', 'Produto inserido com sucesso!');
@@ -56,18 +42,14 @@ class ProdutoController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
+    // Exibir detalhes do produto
     public function show(string $id)
     {
         $produto = Produto::with('fornecedor')->findOrFail($id);
         return view("produtos.show", compact('produto'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // Formulário de edição
     public function edit(string $id)
     {
         $produto = Produto::findOrFail($id);
@@ -75,23 +57,12 @@ class ProdutoController extends Controller
         return view("produtos.edit", compact('produto', 'fornecedores'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Atualizar produto
     public function update(Request $request, string $id)
     {
         try {
             $produto = Produto::findOrFail($id);
-            
-            $data = $request->validate([
-                'descricao' => 'required|string|max:255',
-                'valor_compra' => 'required|numeric|min:0',
-                'valor_venda' => 'required|numeric|min:0',
-                'fornecedor_id' => 'nullable|exists:fornecedors,id',
-                'data_compra' => 'nullable|date'
-            ]);
-
-            $produto->update($data);
+            $produto->update($request->all());
             
             return redirect()->route('produtos.index')
                 ->with('sucesso', 'Produto alterado com sucesso!');
@@ -106,9 +77,7 @@ class ProdutoController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Excluir produto
     public function destroy(string $id)
     {
         try {

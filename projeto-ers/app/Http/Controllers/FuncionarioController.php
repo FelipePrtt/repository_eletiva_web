@@ -26,13 +26,6 @@ class FuncionarioController extends Controller
     public function store(Request $request)
     {
         try {
-            $request->validate([
-                'nome' => 'required|string|max:100',
-                'cargo' => 'required|string|max:50',
-                'email' => 'required|email|unique:funcionarios,email',
-                'telefone' => 'required|string|max:20'
-            ]);
-
             Funcionario::create($request->all());
 
             return redirect()->route('funcionarios.index')
@@ -63,18 +56,9 @@ class FuncionarioController extends Controller
     {
         try {
             $funcionario = Funcionario::findOrFail($id);
-
-            $request->validate([
-                'nome' => 'required|string|max:100',
-                'cargo' => 'required|string|max:50',
-                'email' => 'required|email|unique:funcionarios,email,'.$funcionario->id,
-                'telefone' => 'required|string|max:20'
-            ]);
-
             $funcionario->update($request->all());
 
-            return redirect()->route('funcionarios.index')
-                ->with('sucesso', 'Funcionário atualizado com sucesso!');
+            return redirect()->route('funcionarios.index')->with('sucesso', 'Funcionário atualizado com sucesso!');
         } catch (Exception $e) {
             Log::error("Erro ao atualizar funcionário: " . $e->getMessage());
             return redirect()->route('funcionarios.index')

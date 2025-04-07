@@ -9,38 +9,23 @@ use Exception;
 
 class FornecedorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Listar todos
     public function index()
     {
         $fornecedores = Fornecedor::all();
         return view('fornecedores.index', compact('fornecedores'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Formulário de criação
     public function create()
     {
         return view('fornecedores.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Salvar novo
     public function store(Request $request)
     {
         try {
-            $request->validate([
-                'nome' => 'required|string|max:100',
-                'telefone' => 'required|string|max:20',
-                'cnpj' => 'required|string|max:18|unique:fornecedors,cnpj',
-                'cep' => 'nullable|string|max:9',
-                'endereco' => 'nullable|string|max:255',
-                'bairro' => 'nullable|string|max:100'
-            ]);
-
             Fornecedor::create($request->all());
 
             return redirect()->route('fornecedores.index')
@@ -55,41 +40,25 @@ class FornecedorController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
+    // Exibir detalhes
     public function show(string $id)
     {
         $fornecedor = Fornecedor::findOrFail($id);
         return view('fornecedores.show', compact('fornecedor'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // Formulário de edição
     public function edit(string $id)
     {
         $fornecedor = Fornecedor::findOrFail($id);
         return view('fornecedores.edit', compact('fornecedor'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Atualizar
     public function update(Request $request, string $id)
     {
         try {
             $fornecedor = Fornecedor::findOrFail($id);
-
-            $request->validate([
-                'nome' => 'required|string|max:100',
-                'telefone' => 'required|string|max:20',
-                'cnpj' => 'required|string|max:18|unique:fornecedors,cnpj,'.$fornecedor->id,
-                'cep' => 'nullable|string|max:9',
-                'endereco' => 'nullable|string|max:255',
-                'bairro' => 'nullable|string|max:100'
-            ]);
-
             $fornecedor->update($request->all());
 
             return redirect()->route('fornecedores.index')
@@ -105,9 +74,7 @@ class FornecedorController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Excluir
     public function destroy(string $id)
     {
         try {

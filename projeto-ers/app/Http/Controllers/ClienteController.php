@@ -26,13 +26,6 @@ class ClienteController extends Controller
     public function store(Request $request)
     {
         try {
-            $request->validate([
-                'nome' => 'required|string|max:100',
-                'email' => 'required|email|unique:clientes,email',
-                'telefone' => 'required|string|max:20',
-                'endereco' => 'nullable|string|max:200'
-            ]);
-
             Cliente::create($request->all());
 
             return redirect()->route('clientes.index')
@@ -63,14 +56,6 @@ class ClienteController extends Controller
     {
         try {
             $cliente = Cliente::findOrFail($id);
-
-            $request->validate([
-                'nome' => 'required|string|max:100',
-                'email' => 'required|email|unique:clientes,email,'.$cliente->id,
-                'telefone' => 'required|string|max:20',
-                'endereco' => 'nullable|string|max:200'
-            ]);
-
             $cliente->update($request->all());
 
             return redirect()->route('clientes.index')
