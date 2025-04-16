@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\FornecedorController;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\ProdutoController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,11 +22,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+//Rotas de login deve vir antes para proteger as outras rotas
+Route::get('/login', [AuthController::class, 'showFormLogin'])->name('login');//Devido a utilização do middleware de validação do laravel que utilizamos, precisa do name('login') que redireciona para a página que desejamos caso não consigamos validação
+Route::post('/login', [AuthController::class, 'login']);
 
-Route::resource("produtos", ProdutoController::class);  
+Route::middleware('auth')->group(function(){ //Middleware restringe o acesso as rotes que estão dentro dele, fornecendo acesso somente aos usuários logados
+    Route::resource("produtos", ProdutoController::class);  
 
-Route::resource("fornecedores", FornecedorController::class);
+    Route::resource("fornecedores", FornecedorController::class);
+    
+    Route::resource("funcionarios", FuncionarioController::class);
+    
+    Route::resource("clientes", ClienteController::class);
 
-Route::resource("funcionarios", FuncionarioController::class);
-
-Route::resource("clientes", ClienteController::class);
+    Route::post('/logout', [AuthController::class], 'logout');
+});
