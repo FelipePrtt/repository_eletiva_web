@@ -5,6 +5,8 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\FornecedorController;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\ProdutoController;
+use App\Http\Middleware\RoleAdmMiddleware;
+use App\Http\Middleware\RoleCliMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -27,13 +29,24 @@ Route::get('/login', [AuthController::class, 'showFormLogin'])->name('login');//
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth')->group(function(){ //Middleware restringe o acesso as rotes que estão dentro dele, fornecendo acesso somente aos usuários logados
-    Route::resource("produtos", ProdutoController::class);  
+   
+    Route::post('/logout', [AuthController::class, 'logout']);
+   
+    //Middleware para verificar se o usuário é do nivel ADM
+    Route::middleware([RoleAdmMiddleware::class])->group(function(){
+        Route::resource("produtos", ProdutoController::class); 
+        Route::resource("fornecedores", FornecedorController::class);
+        Route::resource("funcionarios", FuncionarioController::class);
+        Route::resource("clientes", ClienteController::class);
+        Route::get('/home-adm', function(){
+            return view('home-adm');
+        });
+    });
 
-    Route::resource("fornecedores", FornecedorController::class);
-    
-    Route::resource("funcionarios", FuncionarioController::class);
-    
-    Route::resource("clientes", ClienteController::class);
-
-    Route::post('/logout', [AuthController::class], 'logout');
+    //Middleware para verificar se o usuário é do nivel CLI
+    Route::middleware([RoleCliMiddleware::class])->group(function(){
+        Route::get('/home-cli', function(){
+            return view('home-cli');
+        });
+    }); 
 });

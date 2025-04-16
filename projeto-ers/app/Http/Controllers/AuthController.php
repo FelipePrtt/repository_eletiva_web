@@ -17,7 +17,11 @@ class AuthController extends Controller
         //Busca pelos dados no banco
         if (Auth::attempt($credenciais)){
             $request->session()->regenerate();
-            return redirect()->intended('/produtos');
+            $user = Auth::user();
+            if ($user->role == 'ADM')
+                return redirect()->intended('/home-adm');
+            else
+                return redirect()->intended('/home-cli');
         }
 
         //Se os dados não estiverem no banco volta pra página de login com erro
