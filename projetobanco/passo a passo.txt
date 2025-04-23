@@ -1,0 +1,13 @@
+- Iniciar o Mysql no Xampp
+- Clonar o repositório na máquina
+- Abrir o projeto do VSCode
+- Copiar o arquivo .env e verificar se os dados da conexão estão corretos 
+        (linhas 11 a 16)
+- Executar no terminal, no caminho da pasta do projeto, os seguintes comandos:
+--> composer update
+--> php artisan key:generate
+--> php artisan migrate (digitar yes para criar o banco de dados)
+--> php artisan db:seed
+--> php artisan serve
+
+

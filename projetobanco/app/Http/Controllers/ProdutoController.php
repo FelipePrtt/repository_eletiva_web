@@ -7,6 +7,7 @@ use App\Models\Categoria;
 use App\Models\Produto;
 use Exception;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class ProdutoController extends Controller
 {
@@ -34,7 +35,11 @@ class ProdutoController extends Controller
     public function store(Request $request)
     {
         try{
-            Produto::create($request->all());
+            $dados = $request->all();
+            if ($request->hasFile('foto')){
+                $dados['foto'] = $request->file('foto')->store('produtos', 'public');
+            }
+            Produto::create($dados);
             return redirect()->route('produtos.index')
                 ->with('sucesso', 'Produto inserido com sucesso!');
         } catch (Exception $e){
@@ -52,7 +57,9 @@ class ProdutoController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $produto = Produto::findOrFail($id);
+        $categorias = Categoria::all();
+        return view("produtos.show", compact('produto', 'categorias'));
     }
 
     /**
@@ -60,9 +67,9 @@ class ProdutoController extends Controller
      */
     public function edit(string $id)
     {
-        $produto = Produto::findOrFail($id); 
+        $produto = Produto::findOrFail($id);
         $categorias = Categoria::all();
-        return view("produtos.edit", compact('prduto', 'categorais'));
+        return view("produtos.edit", compact('produto', 'categorias'));
     }
 
     /**
@@ -72,16 +79,24 @@ class ProdutoController extends Controller
     {
         try{
             $produto = Produto::findOrFail($id);
-            $produto->update($request->all());
+
+            $dados = $request->all();
+            if ($request->hasFile('foto')){
+                if ($produto->foto && Storage::exists('public/'.$produto->foto))
+                    Storage::delete('public/'.$produto->foto);
+                $dados['foto'] = $request->file('foto')->store('produtos', 'public');
+            }
+            $produto->update($dados);
             return redirect()->route('produtos.index')
-                ->width('sucesso', 'Produto alterado com sucesso!');
+                ->with('sucesso', 'Produto alterado com sucesso!');
         } catch (Exception $e){
-            Log::error("Erro ao atualizar o produto:". $e->getMessage(), [
+            Log::error("Erro ao editar o produto: ". $e->getMessage(), [
                 'stack' => $e->getTraceAsString(),
                 'produto_id' => $id,
                 'request' => $request->all()
             ]);
-            return redirect()->route('produtos.index')->with('erro', 'Erro ao editar');
+            return redirect()->route('produtos.index')
+                ->with('erro', 'Erro ao editar!');
         }
     }
 
@@ -91,13 +106,19 @@ class ProdutoController extends Controller
     public function destroy(string $id)
     {
         try{
-
+            $produto = Produto::findOrFail($id);
+            if ($produto->foto && Storage::exists('public/'.$produto->foto))
+                Storage::delete('public/'.$produto->foto);
+            $produto->delete();
+            return redirect()->route('produtos.index')
+                ->with('sucesso', 'Produto excluído com sucesso!');
         } catch (Exception $e){
-            Log::error("Erro ao atualizar o produto:". $e->getMessage(), [
+            Log::error("Erro ao excluir o produto: ". $e->getMessage(), [
                 'stack' => $e->getTraceAsString(),
                 'produto_id' => $id
             ]);
-            return redirect()->route('produtos.index')->with('Erro ao editar');
+            return redirect()->route('produtos.index')
+                ->with('erro', 'Erro ao excluir!');
         }
     }
 }
