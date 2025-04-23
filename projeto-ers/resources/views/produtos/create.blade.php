@@ -26,7 +26,11 @@
             <label for="valor_venda" class="form-label">Valor de Venda:</label>
             <input type="number" step="0.01" id="valor_venda" name="valor_venda" class="form-control" required>
         </div>
-    
+
+        <div class="mb-3">
+            <label for="qtde_estoque" class="form-label">Quantiade em estoque</label>
+            <input type="number" step="1" id="valor_venda" name="qtde_estoque" class="form-control" required>
+        </div>
         <div class="mb-3">
             <label for="fornecedor_id" class="form-label">Selecione o Fornecedor:</label>
             <select id="fornecedor_id" name="fornecedor_id" class="form-select">

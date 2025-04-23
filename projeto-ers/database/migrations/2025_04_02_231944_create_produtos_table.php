@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('descricao');
             $table->decimal('valor_compra', 10 , 2);
             $table->decimal('valor_venda', 10, 2);
+            $table->integer('qtde_estoque');
 
             //Campos opcionais
             $table->unsignedBigInteger('fornecedor_id')->nullable();

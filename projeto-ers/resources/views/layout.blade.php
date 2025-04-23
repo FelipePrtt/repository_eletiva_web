@@ -1,49 +1,54 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sistema de Ecomerce</title>
-  <!-- Bootstrap 5 CSS -->
+  <title>Sistema de Ecommerce</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
-
-  <!-- Navbar escura com botão de logout -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Ecomerce</a>
-
-      <!-- Botão toggle para mobile -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarConteudo" aria-controls="navbarConteudo" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <!-- Conteúdo colapsável da navbar -->
-      <div class="collapse navbar-collapse" id="navbarConteudo">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <nav class="col-2 d-flex flex-column flex-shrink-0 p-3 text-white bg-dark vh-100">
+        <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+          <span class="fs-4">Ecommerce</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Início</a>
+            <a href="#" class="nav-link active text-white" aria-current="page">Início</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Recursos</a>
+          <li>
+            <a href="/fornecedores" class="nav-link text-white">Fornecedores</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contato</a>
+          <li>
+            <a href="/produtos" class="nav-link text-white">Produtos</a>
+          </li>
+          <li>
+            <a href="/clientes" class="nav-link text-white">Clientes</a>
+          </li>
+          <li>
+            <a href="/funcionarios" class="nav-link text-white">Funcionários</a>
           </li>
         </ul>
-
-        <!-- Botão de logout vermelho -->
-        <form method="POST" action="/logout" class="d-flex" role="logout">
+        <hr>
+        <form method="POST" action="/logout">
           @csrf
-          <button type="submit" class="btn btn-danger">Sair</button>
+          <button type="submit" class="btn btn-danger w-100">Sair</button>
         </form>
-      </div>
-    </div>
-  </nav>
+      </nav>
 
-  @yield('principal')
-  <!-- Bootstrap 5 JS (opcional, mas necessário para o toggle funcionar) -->
+      <!-- Main Content -->
+      <main class="col">
+        @yield('principal')
+      </main>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

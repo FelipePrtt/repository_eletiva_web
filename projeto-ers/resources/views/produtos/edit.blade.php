@@ -30,7 +30,12 @@
             <input type="number" step="0.01" id="valor_venda" name="valor_venda" 
                    class="form-control" value="{{ old('valor_venda', $produto->valor_venda) }}" required>
         </div>
-    
+
+        <div class="mb-3">
+            <label for="qtde_estoque" class="form-label">Quantidade em Estoque:</label>
+            <input type="number" step="1" id="qtde_estoque" name="qtde_estoque" class="form-control" value="{{ old('qtde_estoque', $produto->qtde_estoque) }}" required>
+        </div>
+
         <div class="mb-3">
             <label for="fornecedor_id" class="form-label">Fornecedor:</label>
             <select id="fornecedor_id" name="fornecedor_id" class="form-select">

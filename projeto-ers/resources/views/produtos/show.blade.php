@@ -27,7 +27,11 @@
             <label class="form-label">Valor de Venda:</label>
             <input type="text" class="form-control" value="R$ {{ number_format($produto->valor_venda, 2, ',', '.') }}" disabled>
         </div>
-    
+
+        <div class="mb-3">
+            <label class="form-label">Quantidade em Estoque:</label>
+            <input type="text" class="form-control" value=" {{number_format($produto->qtde_estoque)}}" disabled>
+        </div>
         <div class="mb-3">
             <label class="form-label">Fornecedor:</label>
             <input type="text" class="form-control" 
