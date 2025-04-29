@@ -18,21 +18,18 @@
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
-          <li class="nav-item">
-            <a href="#" class="nav-link active text-white" aria-current="page">Início</a>
-          </li>
-          <li>
-            <a href="/fornecedores" class="nav-link text-white">Fornecedores</a>
-          </li>
-          <li>
-            <a href="/produtos" class="nav-link text-white">Produtos</a>
-          </li>
-          <li>
-            <a href="/clientes" class="nav-link text-white">Clientes</a>
-          </li>
-          <li>
-            <a href="/funcionarios" class="nav-link text-white">Funcionários</a>
-          </li>
+            <li>
+              <a href="/fornecedores" class="nav-link text-white" >Fornecedores</a>
+            </li>
+            <li>
+              <a href="/produtos" class="nav-link text-white">Produtos</a>
+            </li>
+            <li>
+              <a href="/clientes" class="nav-link text-white">Clientes</a>
+            </li>
+            <li>
+              <a href="/funcionarios" class="nav-link text-white">Funcionários</a>
+            </li>
         </ul>
         <hr>
         <form method="POST" action="/logout">

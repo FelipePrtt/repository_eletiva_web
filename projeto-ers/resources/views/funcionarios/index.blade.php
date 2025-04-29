@@ -14,53 +14,58 @@
     @section('principal')
 
     <div class="container-fluid">
-      <h1>Funcionários</h1>
+      <div class="row">
+        <div class="col">
+          <h1>Funcionários</h1>
 
-      <a class="btn btn-primary mb-3" href="/funcionarios/create">Novo Funcionário</a>
+          <a class="btn btn-primary mb-3" href="/funcionarios/create">Novo Funcionário</a>
 
-      @if(session('sucesso'))
-      <div class="alert alert-success">
-        {{ session('sucesso') }}
+          @if(session('sucesso'))
+          <div class="alert alert-success">
+            {{ session('sucesso') }}
+          </div>
+          @endif
+
+          @if(session('erro'))
+          <div class="alert alert-danger">
+            {{ session('erro') }}
+          </div>
+          @endif
+
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Telefone</th>
+                <th>Cidade</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($funcionarios as $f)
+              <tr>
+                <td>{{ $f->id }}</td>
+                <td>{{ $f->nome }}</td>
+                <td>{{ $f->cpf }}</td>
+                <td>{{ $f->telefone }}</td>
+                <td>{{ $f->cidade }}/{{ $f->estado }}</td>
+                <td>
+                  <a href="/funcionarios/{{ $f->id }}/edit" class="btn btn-warning">Editar</a>
+                  <a href="/funcionarios/{{ $f->id }}" class="btn btn-info">Consultar</a>
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
       </div>
-      @endif
-
-      @if(session('erro'))
-      <div class="alert alert-danger">
-        {{ session('erro') }}
-      </div>
-      @endif
-
-      <table class="table table-hover table-striped">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>CPF</th>
-            <th>Telefone</th>
-            <th>Cidade</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach($funcionarios as $f)
-          <tr>
-            <td>{{ $f->id }}</td>
-            <td>{{ $f->nome }}</td>
-            <td>{{ $f->cpf }}</td>
-            <td>{{ $f->telefone }}</td>
-            <td>{{ $f->cidade }}/{{ $f->estado }}</td>
-            <td>
-              <a href="/funcionarios/{{ $f->id }}/edit" class="btn btn-warning">Editar</a>
-              <a href="/funcionarios/{{ $f->id }}" class="btn btn-info">Consultar</a>
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
     </div>
+    @endsection
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

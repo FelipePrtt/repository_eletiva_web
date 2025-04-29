@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
 //Rotas de login deve vir antes para proteger as outras rotas
 Route::get('/login', [AuthController::class, 'showFormLogin'])->name('login');//Devido a utilização do middleware de validação do laravel que utilizamos, precisa do name('login') que redireciona para a página que desejamos caso não consigamos validação
