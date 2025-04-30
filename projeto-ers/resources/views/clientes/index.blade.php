@@ -37,9 +37,9 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Nome</th>
-                                <th>RG</th>
-                                <th>CPF</th>
                                 <th>Telefone</th>
+                                <th>CPF</th>
+                                <th>CEP</th>
                                 <th>Email</th>
                                 <th>Ações</th>
                             </tr>
@@ -49,9 +49,9 @@
                             <tr>
                                 <td>{{ $c->id }}</td>
                                 <td>{{ $c->nome }}</td>
-                                <td>{{ $c->rg}}</td>
-                                <td>{{ $c->cpf }}</td>
                                 <td>{{ $c->telefone}}</td>
+                                <td>{{ $c->cpf }}</td>
+                                <td>{{ $c->cep }}</td>
                                 <td>{{ $c->email ?? '-' }}</td>
                                 <td>
                                     <a href="/clientes/{{ $c->id }}/edit" class="btn btn-warning">Editar</a>

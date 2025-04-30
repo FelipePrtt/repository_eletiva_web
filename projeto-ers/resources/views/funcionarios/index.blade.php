@@ -37,9 +37,9 @@
               <tr>
                 <th>ID</th>
                 <th>Nome</th>
-                <th>CPF</th>
                 <th>Telefone</th>
-                <th>Cidade</th>
+                <th>CPF</th>
+                <th>CEP</th>
                 <th>Ações</th>
               </tr>
             </thead>
@@ -48,9 +48,9 @@
               <tr>
                 <td>{{ $f->id }}</td>
                 <td>{{ $f->nome }}</td>
-                <td>{{ $f->cpf }}</td>
                 <td>{{ $f->telefone }}</td>
-                <td>{{ $f->cidade }}/{{ $f->estado }}</td>
+                <td>{{ $f->cpf }}</td>
+                <td>{{ $f->cep }}</td>
                 <td>
                   <a href="/funcionarios/{{ $f->id }}/edit" class="btn btn-warning">Editar</a>
                   <a href="/funcionarios/{{ $f->id }}" class="btn btn-info">Consultar</a>

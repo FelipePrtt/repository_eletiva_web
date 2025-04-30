@@ -37,7 +37,9 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Nome</th>
-                                <th>CNPJ</th>
+                                <th>Telefone</th>
+                                <th>CNPJ</th>                               
+                                <th>CEP</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
@@ -46,7 +48,9 @@
                             <tr>
                                 <td> {{ $f->id }}</td>
                                 <td> {{ $f->nome }}</td>
+                                <td> {{ $f->telefone }}</td>
                                 <td> {{ $f->cnpj }}</td>
+                                <td> {{ $f->cep }}</td>
                                 <td>
                                     <a href="/fornecedores/{{ $f->id }}/edit" class="btn btn-warning">Editar</a>
                                     <a href="/fornecedores/{{ $f->id }}" class="btn btn-info">Consultar</a>
