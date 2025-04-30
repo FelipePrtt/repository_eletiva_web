@@ -5,6 +5,7 @@ use App\Http\Controllers\ProdutoController;
 use App\Http\Middleware\RoleAdmMiddleware;
 use App\Http\Middleware\RoleCliMiddleware;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/cadastro', [UserController::class, 'create']);
+Route::post('/cadastro', [UserController::class, 'store']);
 
 Route::get("/login", [AuthController::class, 'showFormLogin'])->name('login');
 Route::post("/login", [AuthController::class, 'login']);
