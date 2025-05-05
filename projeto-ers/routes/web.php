@@ -5,6 +5,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\FornecedorController;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\VendaController;
 use App\Http\Middleware\RoleAdmMiddleware;
 use App\Http\Middleware\RoleCliMiddleware;
 use Illuminate\Support\Facades\Auth;
@@ -38,6 +39,7 @@ Route::middleware('auth')->group(function(){ //Middleware restringe o acesso as 
         Route::resource("fornecedores", FornecedorController::class);
         Route::resource("funcionarios", FuncionarioController::class);
         Route::resource("clientes", ClienteController::class);
+        Route::resource("vendas", VendaController::class);
         Route::get('/home-adm', function(){
             return view('home-adm');
         });

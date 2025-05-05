@@ -17,7 +17,12 @@
             <label class="form-label">Descrição:</label>
             <input type="text" class="form-control" value="{{ $produto->descricao }}" disabled>
         </div>
-    
+
+        <div class="mb-3">
+            <lable for="codigo_barra" class="form-label">Código de Barras</lable>
+            <input type="number" id="codigo_barra" name="codigo_barra" class="form-control" disabled>
+        </div>
+
         <div class="mb-3">
             <label class="form-label">Valor de Compra:</label>
             <input type="text" class="form-control" value="R$ {{ number_format($produto->valor_compra, 2, ',', '.') }}" disabled>

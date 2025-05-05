@@ -16,7 +16,12 @@
             <label for="descricao" class="form-label">Descrição do Produto:</label>
             <input type="text" id="descricao" name="descricao" class="form-control" required>
         </div>
-    
+
+        <div class="mb-3">
+            <lable for="codigo_barra" class="form-label">Código de Barras</lable>
+            <input type="number" id="codigo_barra" name="codigo_barra" class="form-control" required>
+        </div>
+        
         <div class="mb-3">
             <label for="valor_compra" class="form-label">Valor de Compra:</label>
             <input type="number" step="0.01" id="valor_compra" name="valor_compra" class="form-control" required>
