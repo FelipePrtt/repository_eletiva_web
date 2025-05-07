@@ -8,7 +8,7 @@ use App\Models\ItemVenda;
 
 class Venda extends Model
 {
-    protected $fillable = ['id_funcionario', 'id_cliente', 'tipo_pagamento', 'valor_total'];
+    protected $fillable = ['id_cliente', 'tipo_pagamento', 'qtde_parcelas', 'valor_parcela', 'valor_total'];
     
     public function itens()
     {
@@ -17,6 +17,6 @@ class Venda extends Model
     
     public function cliente()
     {
-        return $this->belongsTo(Cliente::class, 'id_cliente');
+        return $this->belongsTo(Cliente::class);
     }
 }

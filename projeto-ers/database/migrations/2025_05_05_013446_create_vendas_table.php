@@ -10,13 +10,16 @@ return new class extends Migration
     {
         Schema::create('vendas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_funcionario');
             $table->unsignedBigInteger('id_cliente');
-            $table->integer('tipo_pagamento');
+            $table->enum('tipo_pagamento', ['Dinheiro', 'Cartão'])->default('Dinheiro');
+            
+            //Ideal seria uma classe separa para as parcelas, porém foram mantidas aqui somente para testes
+            $table->integer('qtde_parcelas');
+            $table->decimal('valor_parcela');
+            
             $table->decimal('valor_total', 10, 2);
             $table->timestamps();
-            
-            $table->foreign('id_funcionario')->references('id')->on('funcionarios');
+
             $table->foreign('id_cliente')->references('id')->on('clientes');
         });
     }

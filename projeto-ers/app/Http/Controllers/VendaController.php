@@ -20,54 +20,54 @@ class VendaController extends Controller
     }
 
     public function create()
-{
-    $clientes = Cliente::all();
-    $funcionarios = Funcionario::all();
-    $produtos = Produto::all();
-    return view('vendas.create', compact('clientes', 'funcionarios', 'produtos'));
-}
-
-public function store(Request $request)
-{
-    $venda = Venda::create([
-        'id_cliente' => $request->cliente_id,
-        'id_funcionario' => $request->funcionario_id,
-        'tipo_pagamento' => $request->tipo_pagamento,
-        'valor_total' => 0
-    ]);
-    
-    $total = 0;
-    foreach ($request->produtos as $produtoId => $dados) {
-        $produto = Produto::find($produtoId);
-        $subtotal = $produto->valor_venda * $dados['quantidade'];
-        
-        ItemVenda::create([
-            'venda_id' => $venda->id,
-            'produto_id' => $produtoId,
-            'codigo_barra' => $produto->codigo_barra,
-            'quantidade' => $dados['quantidade'],
-            'valor_unitario' => $produto->valor_venda,
-            'subtotal' => $subtotal
-        ]);
-        
-        $total += $subtotal;
-        $produto->decrement('qtde_estoque', $dados['quantidade']);
+    {
+        $clientes = Cliente::all();
+        $funcionarios = Funcionario::all();
+        $produtos = Produto::all();
+        return view('vendas.create', compact('clientes', 'funcionarios', 'produtos'));
     }
-    
-    $venda->update(['valor_total' => $total]);
-    
-    return redirect()->route('vendas.show', $venda->id);
-}
+
+    public function store(Request $request)
+    {
+        $venda = Venda::create([
+            'id_cliente' => $request->cliente_id,
+            'id_funcionario' => $request->funcionario_id,
+            'tipo_pagamento' => $request->tipo_pagamento,
+            'valor_total' => 0
+        ]);
+
+        $total = 0;
+        foreach ($request->produtos as $produtoId => $dados) {
+            $produto = Produto::find($produtoId);
+            $subtotal = $produto->valor_venda * $dados['quantidade'];
+
+            ItemVenda::create([
+                'venda_id' => $venda->id,
+                'produto_id' => $produtoId,
+                'codigo_barra' => $produto->codigo_barra,
+                'quantidade' => $dados['quantidade'],
+                'valor_unitario' => $produto->valor_venda,
+                'subtotal' => $subtotal
+            ]);
+
+            $total += $subtotal;
+            $produto->decrement('qtde_estoque', $dados['quantidade']);
+        }
+
+        $venda->update(['valor_total' => $total]);
+
+        return redirect()->route('vendas.show', $venda->id);
+    }
 
     public function destroy(string $id)
     {
-        try{
+        try {
             $venda = Venda::findOrFail($id);
             $venda->delete();
 
             return redirect()->route('vendas.index')->with('sucesso', 'Venda excluída com sucesso!');
-        } catch (Exception $e){
-            Log::error("Erro ao excluir a compra: ". $e->getMessage(), [
+        } catch (Exception $e) {
+            Log::error("Erro ao excluir a compra: " . $e->getMessage(), [
                 'stack' => $e->getTraceAsString(),
                 'venda_id' => $id
             ]);

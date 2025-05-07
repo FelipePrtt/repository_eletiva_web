@@ -5,6 +5,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\FornecedorController;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\ComprasController;
 use App\Http\Controllers\VendaController;
 use App\Http\Middleware\RoleAdmMiddleware;
 use App\Http\Middleware\RoleCliMiddleware;
@@ -43,6 +44,7 @@ Route::middleware('auth')->group(function(){ //Middleware restringe o acesso as 
         Route::get('/home-adm', function(){
             return view('home-adm');
         });
+        Route::get("/clientes-compras/{id}", [ComprasController::class, 'compras']);
     });
 
     //Middleware para verificar se o usuário é do nivel CLI
@@ -50,5 +52,6 @@ Route::middleware('auth')->group(function(){ //Middleware restringe o acesso as 
         Route::get('/home-cli', function(){
             return view('home-cli');
         });
+        
     }); 
 });

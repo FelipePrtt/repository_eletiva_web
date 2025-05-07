@@ -16,9 +16,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
-                    <h1>Clientes</h1>
-
-                    <a class="btn btn-primary mb-3" href="/clientes/create">Novo Cliente</a>
+                    <h1>Itens da venda</h1>
 
                     @if (session('sucesso'))
                     <div class="alert alert-success">
@@ -35,29 +33,17 @@
                     <table class="table table-hover table-striped">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Telefone</th>
-                                <th>CPF</th>
-                                <th>CEP</th>
-                                <th>Email</th>
-                                <th>Ações</th>
+                                <th>Id Produto</th>
+                                <th>Quantidade Comprada</th>
+                                <th>Subtotal</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($clientes as $c)
+                            @foreach ($itens_venda as $item)
                             <tr>
-                                <td>{{ $c->id }}</td>
-                                <td>{{ $c->nome }}</td>
-                                <td>{{ $c->telefone}}</td>
-                                <td>{{ $c->cpf }}</td>
-                                <td>{{ $c->cep }}</td>
-                                <td>{{ $c->email ?? '-' }}</td>
-                                <td>
-                                    <a href="/clientes/{{ $c->id }}/edit" class="btn btn-warning">Editar</a>
-                                    <a href="/clientes/{{ $c->id }}" class="btn btn-info">Consultar</a>
-                                    <a href="/clientes-compras/{{ $c->id }}" class="btn btn-primary">Compras</a>
-                                </td>
+                                <td>{{ $item->produto_id }}</td>
+                                <td>{{ $item->quantidade }}</td>
+                                <td>{{ $item->sub_total }}</td>
                             </tr>
                             @endforeach
                         </tbody>

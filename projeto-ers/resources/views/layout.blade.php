@@ -31,13 +31,6 @@
             </li>
 
 
-            <!-- MENU TEMPORÁRIO PARA TESTE AS VENDAS -->
-            <li>
-              <a href="/vendas" class="nav-link text-white">Vendas</a>
-            </li>
-
-
-
         </ul>
         <hr>
         <form method="POST" action="/logout">

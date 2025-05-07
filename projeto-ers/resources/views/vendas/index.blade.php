@@ -38,6 +38,7 @@
                 <th>ID</th>
                 <th>Cliente</th>
                 <th>Valor Total</th>
+                <th>Tipo de Pagamento</th>
                 <th>Data</th>
                 <th>Ações</th>
               </tr>
@@ -48,6 +49,7 @@
                 <td>{{ $venda->id }}</td>
                 <td>{{ $venda->cliente->nome }}</td>
                 <td>{{ $venda->valor_total }}</td>
+                <td>{{ $venda->tipo_pagamento }}</td>;
                 <td>{{ $venda->created_at }}</td>
                 <td>
                   <a href="/vendas/{{ $venda->id }}/edit" class="btn btn-warning">Editar</a>

@@ -11,29 +11,18 @@ return new class extends Migration
         Schema::create('itens_venda', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('venda_id');            
-            $table->unsignedBigInteger('produto_id');
-            $table->unsignedBigInteger('codigo_barra');           
+            $table->unsignedBigInteger('produto_id')->foreign('produto_id')->references('id')->on('produtos');
+            $table->unsignedBigInteger('codigo_barra')->foreign('codigo_barra')->references('codigo_barra')->on('produtos');           
             $table->integer('quantidade');
             $table->decimal('valor_unitario', 10, 2);
             $table->decimal('subtotal', 10, 2);
-            $table->timestamps();
-            $table->foreign('venda_id')
-                  ->references('id')
-                  ->on('vendas')
-                  ->onDelete('cascade');
-                  
-            $table->foreign('produto_id')
-                  ->references('id')
-                  ->on('produtos');
-                  
-            $table->foreign('codigo_barra')
-                  ->references('codigo_barra')
-                  ->on('produtos');
+            $table->foreign('venda_id')->references('id')->on('vendas')->onDelete('cascade');
+            $table->timestamps();                                      
         });
     }
 
     public function down(): void
     {
-        //
+        Schema::dropIfExists('itens_venda');
     }
 };
