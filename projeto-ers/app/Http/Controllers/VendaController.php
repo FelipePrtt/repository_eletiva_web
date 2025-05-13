@@ -59,6 +59,35 @@ class VendaController extends Controller
         return redirect()->route('vendas.show', $venda->id);
     }
 
+    public function show(string $id)
+    {
+        $venda = Venda::with('cliente')->findOrFail($id);
+        return view('vendas.show', compact('produto'));
+    }
+
+    public function edit(string $id)
+    {
+        $venda = Venda::findOrFail($id);
+        $cliente = Cliente::all();
+        return view('vendas.edit', compact('produto', 'cliente'));
+    }
+
+    public function update(Request $request, string $id)
+    {
+        try{
+            $venda = Venda::findOrFail($id);
+            $venda->update($request->all());
+
+            return redirect()->route('vendas.index')->with('sucesso', 'Venda alterada com sucesso!');
+        } catch (Exception $e){
+            Log::error('Erro ao alterar venda:'. $e->getMessage(), [
+                'stack' => $e->getTraceAsString(),
+                'venda_id' => $id,
+                'request' => $request->all()
+            ]);
+        }
+    }
+
     public function destroy(string $id)
     {
         try {
