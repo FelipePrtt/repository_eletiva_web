@@ -13,9 +13,10 @@ use Illuminate\Support\Facades\Log;
 
 class VendaController extends Controller
 {
-    public function index()
-    {
-        $vendas = Venda::all();
+    public function index(Request $request)
+    {   
+        $id = $request->query('id');
+        $vendas = Venda::where('id_cliente', $id)->get();
         return view("vendas.index", compact('vendas'));
     }
 

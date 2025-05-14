@@ -12,4 +12,5 @@ class ComprasController extends Controller
         $vendas = Venda::where('id_cliente', $id)->get();
         return view("vendas.index", compact('vendas'));
     }
+    
 }

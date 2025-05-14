@@ -44,7 +44,12 @@ Route::middleware('auth')->group(function(){ //Middleware restringe o acesso as 
         Route::get('/home-adm', function(){
             return view('home-adm');
         });
-        Route::get("/clientes-compras/{id}", [ComprasController::class, 'compras']);
+
+        /*
+        Rotas e códigos relacionado a "Venda" cuidarão de compras já realizadas
+        Enquanto códigos e rotas relacionados a "Itens da Venda" cuidarão de compras em andamento
+        */
+        Route::get("/clientes-vendas/{id}", [VendaController::class, 'index']);
     });
 
     //Middleware para verificar se o usuário é do nivel CLI

@@ -56,7 +56,7 @@
                                 <td>
                                     <a href="/clientes/{{ $c->id }}/edit" class="btn btn-warning">Editar</a>
                                     <a href="/clientes/{{ $c->id }}" class="btn btn-info">Consultar</a>
-                                    <a href="/clientes-compras/{{ $c->id }}" class="btn btn-primary">Compras</a>
+                                    <a href="/clientes-vendas/{{ $c->id }}" class="btn btn-primary">Compras</a>
                                 </td>
                             </tr>
                             @endforeach
