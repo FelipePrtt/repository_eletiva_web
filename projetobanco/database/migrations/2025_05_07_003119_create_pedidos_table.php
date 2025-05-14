@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->foreing('user_id')->references('id')->on('users')->onDelete('restrict');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
             $table->decimal('total', 10, 2)->default(0);
             $table->enum('status', ['aberto', 'fechado'])->default('aberto');
             $table->timestamps();
