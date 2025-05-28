@@ -18,7 +18,7 @@
         <div class="col">
           <h1>Vendas</h1>
 
-          <a class="btn btn-primary mb-3" href="/ItensVenda/create">Nova Venda</a>
+          <a class="btn btn-primary mb-3" href="/compras/create">Nova Venda</a>
 
           @if(session('sucesso'))
           <div class="alert alert-success">

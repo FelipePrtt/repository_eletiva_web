@@ -36,6 +36,7 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Nome</th>
                                 <th>Descrição</th>
                                 <th>Código de Barras</th>
                                 <th>Valor Venda</th>
@@ -48,6 +49,7 @@
                             @foreach ($produtos as $p)
                             <tr>
                                 <td>{{ $p->id }}</td>
+                                <td>{{ $p->nome }}</td>
                                 <td>{{ $p->descricao }}</td>
                                 <td>{{ $p->codigo_barra}}</td>
                                 <td>R$ {{ number_format($p->valor_venda, 2, ',', '.') }}</td>

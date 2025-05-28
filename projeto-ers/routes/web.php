@@ -6,6 +6,7 @@ use App\Http\Controllers\FornecedorController;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\ComprasController;
+use App\Http\Controllers\ItensVendaController;
 use App\Http\Controllers\VendaController;
 use App\Http\Middleware\RoleAdmMiddleware;
 use App\Http\Middleware\RoleCliMiddleware;
@@ -47,9 +48,11 @@ Route::middleware('auth')->group(function(){ //Middleware restringe o acesso as 
 
         /*
         Rotas e códigos relacionado a "Venda" cuidarão de compras já realizadas
-        Enquanto códigos e rotas relacionados a "Itens da Venda" cuidarão de compras em andamento
+        Enquanto códigos e rotas relacionados a "Compras" estaram relacionadas a vendas em andamento
+        Já códigos e rota relacionado a "ItensVenda" estaram relacionado aos itens de determinada venda
         */
         Route::get("/clientes-vendas/{id}", [VendaController::class, 'index']);
+        Route::get("/compras/create", [ItensVendaController::class, 'create']);
     });
 
     //Middleware para verificar se o usuário é do nivel CLI

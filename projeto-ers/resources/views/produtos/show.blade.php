@@ -14,6 +14,11 @@
         @method('DELETE')
         
         <div class="mb-3">
+            <label class="form-label">Nome:</label>
+            <input type="text" class="form-control" value="{{ $produto->nome }}" disabled>
+        </div>
+
+        <div class="mb-3">
             <label class="form-label">Descrição:</label>
             <input type="text" class="form-control" value="{{ $produto->descricao }}" disabled>
         </div>
