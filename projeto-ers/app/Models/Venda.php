@@ -8,7 +8,7 @@ use App\Models\ItemVenda;
 
 class Venda extends Model
 {
-    protected $fillable = ['id_cliente', 'tipo_pagamento', 'qtde_parcelas', 'valor_parcela', 'valor_total'];
+    protected $fillable = ['cliente_id', 'compra_id', 'pagamento_id'];
     
     public function itens()
     {

@@ -6,19 +6,26 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('vendas', function (Blueprint $table) {
+        Schema::create('parcelas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('cliente_id')->foreign('cliente_id')->references('id')->on('clientes');;
-            $table->unsignedBigInteger('compra_id')->foreing('compra_id')->references('id')->on('compras');
             $table->unsignedBigInteger('pagamento_id')->foreing('pagamento_id')->references('id')->on('pagamentos');
+            $table->integer('parcelas_totais');
+            $table->integer('parcelas_pagas');
+            $table->decimal('valor_parcela');
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('parcelas');
     }
 };

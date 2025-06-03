@@ -10,13 +10,11 @@ return new class extends Migration
     {
         Schema::create('itens_venda', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('venda_id');            
-            $table->unsignedBigInteger('produto_id')->foreign('produto_id')->references('id')->on('produtos');
-            $table->unsignedBigInteger('codigo_barra')->foreign('codigo_barra')->references('codigo_barra')->on('produtos');           
+            $table->unsignedBigInteger('venda_id')->foreign('venda_id')->references('id')->on('vendas')->onDelete('cascade');;            
+            $table->unsignedBigInteger('produto_id')->foreign('produto_id')->references('id')->on('produtos');          
             $table->integer('quantidade');
             $table->decimal('valor_unitario', 10, 2);
             $table->decimal('subtotal', 10, 2);
-            $table->foreign('venda_id')->references('id')->on('vendas')->onDelete('cascade');
             $table->timestamps();                                      
         });
     }
