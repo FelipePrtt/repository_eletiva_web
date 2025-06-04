@@ -41,7 +41,6 @@ Route::middleware('auth')->group(function(){ //Middleware restringe o acesso as 
         Route::resource("fornecedores", FornecedorController::class);
         Route::resource("funcionarios", FuncionarioController::class);
         Route::resource("clientes", ClienteController::class);
-        Route::resource("vendas", VendaController::class);
         Route::get('/home-adm', function(){
             return view('home-adm');
         });
@@ -52,7 +51,9 @@ Route::middleware('auth')->group(function(){ //Middleware restringe o acesso as 
         Já códigos e rota relacionado a "ItensVenda" estaram relacionado aos itens de determinada venda
         */
         Route::get("/clientes-vendas/{id}", [VendaController::class, 'index']);
-        Route::get("/compras/create", [ItensVendaController::class, 'create']);
+        Route::get("/vendas/create/{id}", [VendaController::class, 'create']);
+        Route::post("/vendas/store", [VendaController::class, 'store']);
+        Route::get('/vendas/show/{id}', [VendaController::class, 'show']);
     });
 
     //Middleware para verificar se o usuário é do nivel CLI

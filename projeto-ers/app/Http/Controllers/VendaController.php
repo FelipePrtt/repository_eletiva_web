@@ -13,75 +13,75 @@ use Illuminate\Support\Facades\Log;
 
 class VendaController extends Controller
 {
-    public function index(Request $request)
-    {   
-        $id = $request->query('id');
-        $vendas = Venda::where('id_cliente', $id)->get();
-        return view("vendas.index", compact('vendas'));
+    public function index($id)
+    {
+        $vendas = Venda::where('cliente_id', $id)->get();
+        return view("vendas.index", compact('vendas', 'id'));
     }
 
-    public function create()
+    public function create($id)
     {
-        $clientes = Cliente::all();
+        $cliente = Cliente::findOrFail($id);
         $funcionarios = Funcionario::all();
         $produtos = Produto::all();
-        return view('vendas.create', compact('clientes', 'funcionarios', 'produtos'));
+        return view('vendas.create', compact('cliente', 'funcionarios', 'produtos'));
     }
 
     public function store(Request $request)
     {
-        $venda = Venda::create([
-            'id_cliente' => $request->cliente_id,
-            'id_funcionario' => $request->funcionario_id,
-            'tipo_pagamento' => $request->tipo_pagamento,
-            'valor_total' => 0
+        $request->validate([
+            'id' => 'required|exists:clientes,id',
+            'pagamento' => 'required|string',
+            'valor_total_venda' => 'required|numeric|min:0',
+            'itens' => 'required|array|min:1',
+            'itens.*.produto_id' => 'required|exists:produtos,id',
+            'itens.*.quantidade' => 'required|integer|min:1',
+            'itens.*.valor_unitario' => 'required|numeric|min:0',
         ]);
 
-        $total = 0;
-        foreach ($request->produtos as $produtoId => $dados) {
-            $produto = Produto::find($produtoId);
-            $subtotal = $produto->valor_venda * $dados['quantidade'];
+        $venda = Venda::create([
+            'cliente_id' => $request->id,
+            'tipo_pagamento' => $request->pagamento,
+            'total' => $request->valor_total_venda,
+        ]);
 
+        foreach ($request->itens as $item) {
             ItemVenda::create([
                 'venda_id' => $venda->id,
-                'produto_id' => $produtoId,
-                'codigo_barra' => $produto->codigo_barra,
-                'quantidade' => $dados['quantidade'],
-                'valor_unitario' => $produto->valor_venda,
-                'subtotal' => $subtotal
+                'produto_id' => $item['produto_id'],
+                'quantidade' => $item['quantidade'],
+                'valor_unitario' => $item['valor_unitario'],
             ]);
-
-            $total += $subtotal;
-            $produto->decrement('qtde_estoque', $dados['quantidade']);
         }
 
-        $venda->update(['valor_total' => $total]);
-
-        return redirect()->route('vendas.show', $venda->id);
+        return redirect('/clientes-vendas/' . $venda->cliente_id);
     }
+
 
     public function show(string $id)
     {
         $venda = Venda::with('cliente')->findOrFail($id);
-        return view('vendas.show', compact('produto'));
+        $cliente = $venda->cliente; 
+        return view('vendas.show', compact('venda', 'cliente'));
     }
+    
 
     public function edit(string $id)
     {
         $venda = Venda::findOrFail($id);
         $cliente = Cliente::all();
-        return view('vendas.edit', compact('produto', 'cliente'));
+        return view('vendas.edit', compact('venda', 'cliente'));
     }
 
     public function update(Request $request, string $id)
     {
-        try{
+        try {
             $venda = Venda::findOrFail($id);
             $venda->update($request->all());
 
             return redirect()->route('vendas.index')->with('sucesso', 'Venda alterada com sucesso!');
-        } catch (Exception $e){
-            Log::error('Erro ao alterar venda:'. $e->getMessage(), [
+        } catch (Exception $e) {
+            Log::error('Erro ao alterar venda:' . $e->getMessage(), [
                 'stack' => $e->getTraceAsString(),
                 'venda_id' => $id,
                 'request' => $request->all()

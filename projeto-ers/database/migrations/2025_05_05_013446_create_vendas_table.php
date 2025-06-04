@@ -10,9 +10,9 @@ return new class extends Migration
     {
         Schema::create('vendas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('cliente_id')->foreign('cliente_id')->references('id')->on('clientes');;
-            $table->unsignedBigInteger('compra_id')->foreing('compra_id')->references('id')->on('compras');
-            $table->unsignedBigInteger('pagamento_id')->foreing('pagamento_id')->references('id')->on('pagamentos');
+            $table->unsignedBigInteger('cliente_id')->foreign('cliente_id')->references('id')->on('clientes');
+            $table->enum('pagamento', ['Á vista', 'Parcelado']);
+            $table->decimal('total');
             $table->timestamps();
         });
     }

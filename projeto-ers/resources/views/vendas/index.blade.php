@@ -18,7 +18,7 @@
         <div class="col">
           <h1>Vendas</h1>
 
-          <a class="btn btn-primary mb-3" href="/compras/create">Nova Venda</a>
+          <a class="btn btn-primary mb-3" href="/vendas/create/{{ $id }}">Nova Venda</a>
 
           @if(session('sucesso'))
           <div class="alert alert-success">
@@ -48,12 +48,12 @@
               <tr>
                 <td>{{ $venda->id }}</td>
                 <td>{{ $venda->cliente->nome }}</td>
-                <td>{{ $venda->valor_total }}</td>
-                <td>{{ $venda->tipo_pagamento }}</td>;
+                <td>{{ $venda->total }}</td>
+                <td>{{ $venda->pagamento }}</td>;
                 <td>{{ $venda->created_at }}</td>
                 <td>
-                  <a href="/vendas/{{ $venda->id }}/edit" class="btn btn-warning">Editar</a>
-                  <a href="/vendas/{{ $venda->id }}" class="btn btn-info">Consultar</a>
+                  <a href="/vendas/edit/{{ $venda->id }}" class="btn btn-danger">Devolução</a>
+                  <a href="/vendas/show/{{ $venda->id }}" class="btn btn-info">Consultar</a>
                 </td>
               </tr>
               @endforeach

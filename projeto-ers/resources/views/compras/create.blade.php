@@ -9,7 +9,7 @@
   <body class="container">
     <h1>Adicionar Produtos à Venda</h1>
 
-    <form method="post" action="{{ route('vendas.create') }}">
+    <form method="post" action="{{ route('compras.create') }}">
       @csrf
       <div class="mb-3">
             <label for="produto_id" class="form-label">Selecione o Produto:</label>
@@ -23,7 +23,7 @@
             </select>
         </div>
 
-    <a href="/carrinho-add/" class="btn btn-primary">Adicionar ao Carrinho</a>
+    <a href="{{route('')}}" class="btn btn-primary">Adicionar ao Carrinho</a>
 
     
     <a href="/clientes-vendas/" class="btn btn-secondary">Cancelar</a>

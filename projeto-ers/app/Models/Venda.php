@@ -4,16 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\ItemVenda;
+use App\Models\Compra;
+use App\Models\Cliente;
 
 class Venda extends Model
 {
-    protected $fillable = ['cliente_id', 'compra_id', 'pagamento_id'];
-    
-    public function itens()
-    {
-        return $this->hasMany(ItemVenda::class);
-    }
+    protected $fillable = ['cliente_id', 'pagamento', 'total'];
     
     public function cliente()
     {
