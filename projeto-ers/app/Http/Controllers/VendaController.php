@@ -52,6 +52,9 @@ class VendaController extends Controller
                 'quantidade' => $item['quantidade'],
                 'valor_unitario' => $item['valor_unitario'],
             ]);
+            $produto = Produto::where('id', $item->produto_id)->firstOrFail();
+
+            Produto::edit();
         }
 
         return redirect('/clientes-vendas/' . $venda->cliente_id);
