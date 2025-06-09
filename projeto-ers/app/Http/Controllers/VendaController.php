@@ -29,6 +29,7 @@ class VendaController extends Controller
 
     public function store(Request $request)
     {
+        //Validação dos dados do request
         $request->validate([
             'id' => 'required|exists:clientes,id',
             'pagamento' => 'required|string',
@@ -39,22 +40,26 @@ class VendaController extends Controller
             'itens.*.valor_unitario' => 'required|numeric|min:0',
         ]);
 
+        //Cria a venda que será vinculado os itens
         $venda = Venda::create([
-            'cliente_id' => $request->id,
-            'tipo_pagamento' => $request->pagamento,
-            'total' => $request->valor_total_venda,
+            'cliente_id' => $request->input('id'),
+            'pagamento' => $request->input('pagamento'),
+            'total' => $request->input('valor_total_venda'),
         ]);
-
-        foreach ($request->itens as $item) {
-            ItemVenda::create([
-                'venda_id' => $venda->id,
+    
+        // Salvar os itens da venda
+        foreach ($request->input('itens') as $item) {
+            $venda->itens()->create([
                 'produto_id' => $item['produto_id'],
                 'quantidade' => $item['quantidade'],
                 'valor_unitario' => $item['valor_unitario'],
+                'total' => $item['quantidade'] * $item['valor_unitario'], 
             ]);
-            $produto = Produto::where('id', $item->produto_id)->firstOrFail();
-
-            Produto::edit();
+            $produto = Produto::find($item['produto_id']);
+            if ($produto) {
+                $produto->qtde_estoque -= $item['quantidade'];
+                $produto->save();
+            }
         }
 
         return redirect('/clientes-vendas/' . $venda->cliente_id);

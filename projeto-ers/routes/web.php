@@ -12,6 +12,7 @@ use App\Http\Middleware\RoleAdmMiddleware;
 use App\Http\Middleware\RoleCliMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeAdmController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,15 +42,9 @@ Route::middleware('auth')->group(function(){ //Middleware restringe o acesso as 
         Route::resource("fornecedores", FornecedorController::class);
         Route::resource("funcionarios", FuncionarioController::class);
         Route::resource("clientes", ClienteController::class);
-        Route::get('/home-adm', function(){
-            return view('home-adm');
-        });
-
-        /*
-        Rotas e códigos relacionado a "Venda" cuidarão de compras já realizadas
-        Enquanto códigos e rotas relacionados a "Compras" estaram relacionadas a vendas em andamento
-        Já códigos e rota relacionado a "ItensVenda" estaram relacionado aos itens de determinada venda
-        */
+        Route::get('/home-adm', [HomeAdmController::class, 'index']);
+        Route::get('/relatoriovendas', [HomeAdmController::class, 'gerarRelatorioVendas']);
+        Route::get('/relatorioclientes', [HomeAdmController::class, 'gerarRelatorioClientes']);
         Route::get("/clientes-vendas/{id}", [VendaController::class, 'index']);
         Route::get("/vendas/create/{id}", [VendaController::class, 'create']);
         Route::post("/vendas/store", [VendaController::class, 'store']);
