@@ -34,7 +34,6 @@
         </div>
 
         
-        <a href="" class="btn btn-warning">Realizar Devolução</a>
         <a href="/clientes-vendas/{{ $cliente->id }}" class="btn btn-secondary">Voltar</a>
     </form>
 

@@ -49,10 +49,9 @@
                 <td>{{ $venda->id }}</td>
                 <td>{{ $venda->cliente->nome }}</td>
                 <td>{{ $venda->total }}</td>
-                <td>{{ $venda->pagamento }}</td>;
+                <td>{{ $venda->pagamento }}</td>
                 <td>{{ $venda->created_at }}</td>
                 <td>
-                  <a href="/vendas/edit/{{ $venda->id }}" class="btn btn-danger">Devolução</a>
                   <a href="/vendas/show/{{ $venda->id }}" class="btn btn-info">Consultar</a>
                 </td>
               </tr>
