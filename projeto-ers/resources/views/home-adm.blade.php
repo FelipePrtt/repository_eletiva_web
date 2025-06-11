@@ -1,22 +1,24 @@
 @extends('layout')
 @section('principal')
 
-<h1>Bem-vindo administrador {{ Auth::user()->name }}!</h1>
-<h4>><a href="/relatoriovendas">Gerar Relatório de Vendas</a></h4>
-<h4>><a href="/relatorioclientes">Gerar Relatório de Clientes</a></h4>
-<h2>Gráfico de Estoque</h2>
-<div style="width: 100%; height: 60%;">
-    <canvas id="graficoEstoque"></canvas>
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('estilo.css') }}">
+@endpush
+
+<div class="admin-container">
+    
+    <h1 class="admin-header">Bem-vindo, administrador {{ Auth::user()->name }}!</h1>
+
+    <ul class="report-list">
+        <li><a href="/relatoriovendas">Gerar Relatório de Vendas</a></li>
+        <li><a href="/relatorioclientes">Gerar Relatório de Clientes</a></li>
+    </ul>
 </div>
 
-<style>
-    #graficoEstoque {
-        position: absolute;
-        top: 100vh;
-        transform: translateY(-100%);
-        width: 100%;
-    }
-</style>
+<h2 class="admin-subheader">Gráfico de Estoque</h2>
+<div class="chart-wrapper width: 100%; height: 60%;">
+    <canvas id="graficoEstoque"></canvas>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
@@ -44,5 +46,4 @@
             }
         });
     </script>
-
 @endsection

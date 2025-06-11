@@ -36,6 +36,31 @@
             <label for="email" class="form-label">Email:</label>
             <input type="email" id="email" name="email" class="form-control">
         </div>
+
+        <div class="mb-3">
+            <label for="cep" class="form-label">CEP:</label>
+            <input type="text" id="cep" name="cep" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="endereco" class="form-label">Endereço:</label>
+            <input type="text" id="endereco" name="endereco" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="bairro" class="form-label">Bairro:</label>
+            <input type="text" id="bairro" name="bairro" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="cidade" class="form-label">Cidade:</label>
+            <input type="text" id="cidade" name="cidade" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="estado" class="form-label">Estado:</label>
+            <input type="text" id="estado" name="estado" class="form-control">
+        </div>
     
         <button type="submit" class="btn btn-primary">Cadastrar</button>
         <a href="/clientes" class="btn btn-secondary">Cancelar</a>
